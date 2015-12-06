@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void
-byte_to_bits(FILE *fp, unsigned char c) {
+void byte_to_bits(FILE *fp, unsigned char c) {
   int i;
   for(int i = 0; i < 8; i++) {
     fprintf(fp, "%d", (c >> i) & 0x1);
@@ -10,8 +9,7 @@ byte_to_bits(FILE *fp, unsigned char c) {
   fprintf(fp, " ");
 }
 
-void
-fprint_bits(FILE *fp, unsigned char *ptr, int num_bytes) {
+void fprint_bits(FILE *fp, unsigned char *ptr, int num_bytes) {
   int i;
   for(i = 0; i < num_bytes; i++) {
     byte_to_bits(fp, *(ptr + i));
@@ -20,8 +18,7 @@ fprint_bits(FILE *fp, unsigned char *ptr, int num_bytes) {
   }
 }
 
-int
-main (int argc, char **argv)
+int main (int argc, char **argv)
 {
   int key_len, i;
   char c, *output_path, *buf;
@@ -57,6 +54,7 @@ main (int argc, char **argv)
     fprintf(stdout, "Error: %s\n", err_msg);
     return 1;
   } else {
+    fprintf(output_file, "%d\n", key_len);
     fwrite(buf, 1, key_len, output_file);
     fclose(f);
     fclose(output_file);
