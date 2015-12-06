@@ -1,0 +1,6 @@
+# Binaries #
+genkey
+
+# Keys #
+keys/*
+*.key
