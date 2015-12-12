@@ -1,3 +1,8 @@
+#include <stdlib.h>
+#include <stdio.h>
+
+#include "string.h"
+
 /**
  * Runs the data through a 4-round feistel cipher
  * The key should be twice as long as the data chunk.
@@ -22,16 +27,16 @@ void feistel_round(void *data, void *key, int size) {
  * xor key.
  * It's the responsibility of the caller to free this function's return.
  */
-void temp_function(void *chunk, void *key, int length) {
+unsigned char * temp_function(unsigned char *chunk, unsigned char *key, int length) {
   if (length % 8 != 0) {
     fprintf(stderr, "Invalid input to feistel. Length not divisible by 8.");
     exit(1);
   }
 
   int i;
-  void *buf, *chunk_piece, *key_piece;
+  unsigned char *buf, chunk_piece, key_piece;
 
-  buf = (void *)malloc(length);
+  buf = (unsigned char *)malloc(length);
 
   for (i = 0; i < length / 8; i++) {
     chunk_piece = *(chunk + 8 * i);
