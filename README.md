@@ -9,7 +9,11 @@ Samples /dev/urandom to create a key of the provided length. Compile with:
 To create a key, input a length and a target output filepath, e.g.
 
     ./genkey 4096 mycoolkey.priv
+    
+# Completed
+*   Key generation
+*   Parity calculator
 
 # In progress
-General feistel cipher. 
-Different modes of operation
+*   General feistel cipher
+*   Different modes of operation
