@@ -35,7 +35,7 @@ unsigned char * temp_function(unsigned char *chunk, unsigned char *key, int leng
   }
 
   int i;
-  unsigned char *buf
+  unsigned char *buf;
   unsigned char chunk_piece, key_piece;
 
   buf = (unsigned char *)malloc(length);
@@ -49,11 +49,6 @@ unsigned char * temp_function(unsigned char *chunk, unsigned char *key, int leng
   return buf;
 }
 
-/* TODO */
-int parity_divide_and_conquer (unsigned char *data, int length) {
-  return 0;
-}
-
 int parity_naive(unsigned char *data, int length) {
   int i, j, number_of_ones = 0;
   unsigned char current_byte;
@@ -64,11 +59,45 @@ int parity_naive(unsigned char *data, int length) {
       number_of_ones = number_of_ones + ((current_byte >> j) & 0x1);
     }
   }
-
   return number_of_ones % 2;
+}
+
+/* TODO */
+int parity (unsigned char *data, int length) {
+  if (length == 0) {
+    return 0;
+  } else if (length == 1) {
+    return parity_naive(data, 1);
+  } else {
+    int left_length, right_length;
+    unsigned char *right_data, *left_data;
+
+    left_length = length / 2;
+    right_length = length - left_length;
+
+    left_data = data;
+    right_data = data + left_length;
+
+    return parity(left_data, left_length) ^ parity(right_data, right_length);
+  }
 }
 
 int main(int argc, char const *argv[]) {
   /* code */
+
+  char *word = "caaaaatta";
+  char letter;
+  int i, result;
+
+  for (i = 0; i < strlen(word); i++) {
+    letter = word[i];
+    result = parity_naive((unsigned char *)(&letter), 1);
+    fprintf(stdout, "%c: %d\n", letter, result);
+  }
+
+  fprintf(stdout, "final: %d\n", parity_naive(
+    (unsigned char *)(word),
+    strlen(word)));
+
   return 0;
 }
