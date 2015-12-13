@@ -25,6 +25,7 @@ void feistel_round(void *data, void *key, int size) {
 /**
  * Placeholder for a better function. Right now, this function returns chunk
  * xor key.
+ *
  * It's the responsibility of the caller to free this function's return.
  */
 unsigned char * temp_function(unsigned char *chunk, unsigned char *key, int length) {
@@ -34,7 +35,8 @@ unsigned char * temp_function(unsigned char *chunk, unsigned char *key, int leng
   }
 
   int i;
-  unsigned char *buf, chunk_piece, key_piece;
+  unsigned char *buf
+  unsigned char chunk_piece, key_piece;
 
   buf = (unsigned char *)malloc(length);
 
@@ -48,8 +50,22 @@ unsigned char * temp_function(unsigned char *chunk, unsigned char *key, int leng
 }
 
 /* TODO */
-int parity (void *data, int length) {
+int parity_divide_and_conquer (unsigned char *data, int length) {
   return 0;
+}
+
+int parity_naive(unsigned char *data, int length) {
+  int i, j, number_of_ones = 0;
+  unsigned char current_byte;
+
+  for (i = 0; i < length; i++) {
+    current_byte = *(data + i);
+    for (j = 0; j < 8; j++) {
+      number_of_ones = number_of_ones + ((current_byte >> j) & 0x1);
+    }
+  }
+
+  return number_of_ones % 2;
 }
 
 int main(int argc, char const *argv[]) {
