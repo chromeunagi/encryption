@@ -28,7 +28,8 @@ void feistel_round(void *data, void *key, int size) {
  *
  * It's the responsibility of the caller to free this function's return.
  */
-unsigned char * temp_function(unsigned char *chunk, unsigned char *key, int length) {
+unsigned char * temp_function(unsigned char *chunk, unsigned char *key,
+  int length) {
   if (length % 8 != 0) {
     fprintf(stderr, "Invalid input to feistel. Length not divisible by 8.");
     exit(1);
@@ -48,6 +49,23 @@ unsigned char * temp_function(unsigned char *chunk, unsigned char *key, int leng
 
   return buf;
 }
+
+/**
+ * Returns the xor of the data chunk and the key. They should be the same
+ * length. The caller is responsible for freeing the return.
+ */
+unsigned char * xor_chunk(unsigned char *data, unsigned char * key,
+  int length) {
+    int offset;
+    unsigned char *result;
+
+    result = malloc(sizeof(unsigned char) * length);
+    for (offset = 0; offset < length; offset++) {
+      memset(result + offset, *(data + offset) ^ *(key + offset), 1);
+    }
+    return result;
+  }
+
 
 int parity_naive(unsigned char *data, int length) {
   int i, j, number_of_ones = 0;
