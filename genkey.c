@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "string.h"
+
 void byte_to_bits(FILE *fp, unsigned char c) {
   int i;
   for(int i = 0; i < 8; i++) {
@@ -34,9 +36,15 @@ int main (int argc, char **argv)
   output_path = argv[2];
 
   if (key_len == 0 || key_len % 4 != 0) {
-    err_msg = "Unvalid input for <key_length>";
+    err_msg = "Invalid input for <key_length>";
     goto fin;
   }
+
+  if (strcmp(output_path + strlen(output_path) - 4, ".key") != 0) {
+    err_msg = "Invalid output filepath. Missing a '.key' suffix";
+    goto fin;
+  }
+
   f = fopen("/dev/urandom", "r");
   output_file = fopen(output_path, "wb");
   if (output_file == NULL) {
