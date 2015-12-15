@@ -65,7 +65,7 @@ int main (int argc, char **argv)
 
     fprintf(output_file, "----BEGIN KEY----\n");
     fwrite(buf, 1, key_len, output_file);
-    fprintf(output_file, "\n----END KEY----\n");
+    fprintf(output_file, "\n----END KEY----");
     fclose(f);
     fclose(output_file);
     free(buf);
