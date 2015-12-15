@@ -35,8 +35,8 @@ int main (int argc, char **argv)
   key_len = atoi(argv[1]);
   output_path = argv[2];
 
-  if (key_len == 0 || key_len % 4 != 0) {
-    err_msg = "Invalid input for <key_length>";
+  if (key_len == 0 || key_len % 8 != 0) {
+    err_msg = "Invalid input for <key_length>.";
     goto fin;
   }
 
