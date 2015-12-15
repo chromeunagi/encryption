@@ -54,8 +54,10 @@ int main (int argc, char **argv)
     fprintf(stdout, "Error: %s\n", err_msg);
     return 1;
   } else {
-    fprintf(output_file, "%d\n", key_len);
+
+    fprintf(output_file, "----BEGIN KEY----\n");
     fwrite(buf, 1, key_len, output_file);
+    fprintf(output_file, "\n----END KEY----\n");
     fclose(f);
     fclose(output_file);
     free(buf);
