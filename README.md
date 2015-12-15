@@ -8,7 +8,7 @@ Samples /dev/urandom to create a key of the provided length. Compile with:
 
 To create a key, input a length and a target output filepath, e.g.
 
-    ./genkey 4096 mycoolkey.priv
+    ./genkey 4096 mycoolkey.key
     
 # Completed
 *   Key generation
