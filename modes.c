@@ -23,34 +23,6 @@ void feistel_round(void *data, void *key, int size) {
 }
 
 /**
- * Placeholder for a better function. Right now, this function returns chunk
- * xor key.
- *
- * It's the responsibility of the caller to free this function's return.
- */
-unsigned char * temp_function(unsigned char *chunk, unsigned char *key,
-  int length) {
-  if (length % 8 != 0) {
-    fprintf(stderr, "Invalid input to feistel. Length not divisible by 8.");
-    exit(1);
-  }
-
-  int i;
-  unsigned char *buf;
-  unsigned char chunk_piece, key_piece;
-
-  buf = (unsigned char *)malloc(length);
-
-  for (i = 0; i < length / 8; i++) {
-    chunk_piece = *(chunk + 8 * i);
-    key_piece = *(key + 8 * i);
-    memset(buf + 8 * i, chunk_piece ^ key_piece, 1);
-  }
-
-  return buf;
-}
-
-/**
  * Returns the xor of the data chunk and the key. They should be the same
  * length. The caller is responsible for freeing the return.
  */
