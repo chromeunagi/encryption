@@ -47,6 +47,7 @@ unsigned char * xor_chunk(unsigned char *data, unsigned char * key,
    *  1. deal with data whose data_len isn't a multiple of
    *     key_len. do this by padding the last chunk appropriately.
    *  2. deal with cases where key_len > data_len
+   *  3. test
    */
   unsigned char * xor_data_with_key(unsigned char *data, unsigned char * key,
     int data_len, int key_len) {
@@ -72,7 +73,6 @@ unsigned char * xor_chunk(unsigned char *data, unsigned char * key,
       return result;
     }
 
-
 int parity_naive(unsigned char *data, int length) {
   int i, j, number_of_ones = 0;
   unsigned char current_byte;
@@ -86,7 +86,7 @@ int parity_naive(unsigned char *data, int length) {
   return number_of_ones % 2;
 }
 
-/* TODO */
+/* TODO finish + test*/
 int parity (unsigned char *data, int length) {
   if (length == 0) {
     return 0;
@@ -108,20 +108,6 @@ int parity (unsigned char *data, int length) {
 
 int main(int argc, char const *argv[]) {
   /* code */
-
-  char *word = "caaaaatta";
-  char letter;
-  int i, result;
-
-  for (i = 0; i < strlen(word); i++) {
-    letter = word[i];
-    result = parity_naive((unsigned char *)(&letter), 1);
-    fprintf(stdout, "%c: %d\n", letter, result);
-  }
-
-  fprintf(stdout, "final: %d\n", parity_naive(
-    (unsigned char *)(word),
-    strlen(word)));
 
   return 0;
 }
