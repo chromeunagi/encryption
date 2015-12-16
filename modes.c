@@ -38,6 +38,40 @@ unsigned char * xor_chunk(unsigned char *data, unsigned char * key,
     return result;
   }
 
+  /**
+   * Split the data into key_len-sized chunks, and call xor_chunk
+   * on each chunk. Returns the overall xor. Caller responsible
+   * for freeing the return value.
+   *
+   * TODO
+   *  1. deal with data whose data_len isn't a multiple of
+   *     key_len. do this by padding the last chunk appropriately.
+   *  2. deal with cases where key_len > data_len
+   */
+  unsigned char * xor_data_with_key(unsigned char *data, unsigned char * key,
+    int data_len, int key_len) {
+      int offset, num_chunks;
+      unsigned char *result, *current_chunk;
+
+      // TODO: Remove this once this case is dealt with.
+      if (key_len >= data_len || data_len % key_len != 0) {
+        fprintf(stdout, "Error: data_len not a multiple of \
+          key_len. Not supported yet.");
+        return NULL;
+      }
+
+      result = malloc(sizeof(unsigned char) * data_len);
+      num_chunks = data_len / key_len;
+
+      for (offset = 0; offset < num_chunks; offset = offset + key_len) {
+        current_chunk = xor_chunk(data + offset, key, key_len);
+        memcpy(result + offset, current_chunk, key_len);
+        free(current_chunk);
+      }
+
+      return result;
+    }
+
 
 int parity_naive(unsigned char *data, int length) {
   int i, j, number_of_ones = 0;
